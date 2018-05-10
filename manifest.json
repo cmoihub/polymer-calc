@@ -1,6 +1,6 @@
 {
   "name": "polymer-calc",
-  "short_name": "polymer-calc",
+  "short_name": "polycalc",
   "description": "A calculator made up of web components",
   "start_url": "/",
   "display": "standalone"
