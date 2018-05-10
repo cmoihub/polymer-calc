@@ -1,3 +1,5 @@
+Please look up planning.md
+
 # \<polymer-calc\>
 
 A calculator made up of web components
