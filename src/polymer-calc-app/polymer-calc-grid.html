@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <dom-module id="polymer-calc-grid">
   <template>
     <style>
@@ -15,26 +15,27 @@
       }
     </style>
     <div class="grid-container">
-      <div class="grid-item">7</div>
-      <div class="grid-item">8</div>
-      <div class="grid-item">9</div>
-      <div class="grid-item">/</div>
+        <paper-button>7</paper-button>
+        <paper-button>8</paper-button>
+        <paper-button>9</paper-button>
+        <paper-button>/</paper-button>
 
-      <div class="grid-item">4</div>
-      <div class="grid-item">5</div>
-      <div class="grid-item">6</div>
-      <div class="grid-item">x</div>
+        <paper-button>4</paper-button>
+        <paper-button>5</paper-button>
+        <paper-button>6</paper-button>
+        <paper-button>x</paper-button>
 
-      <div class="grid-item">1</div>
-      <div class="grid-item">2</div>
-      <div class="grid-item">3</div>
-      <div class="grid-item">-</div>
+        <paper-button>1</paper-button>
+        <paper-button>2</paper-button>
+        <paper-button>3</paper-button>
+        <paper-button>-</paper-button>
 
-      <div class="grid-item">.</div>
-      <div class="grid-item">0</div>
-      <div class="grid-item">=</div>
-      <div class="grid-item">+</div>
+        <paper-button>.</paper-button>
+        <paper-button>0</paper-button>
+        <paper-button>=</paper-button>
+        <paper-button>+</paper-button>
     </div>
+    
 
   </template>
 
@@ -45,14 +46,14 @@
      */
     class PolymerCalcGrid extends Polymer.Element {
       static get is() { return 'polymer-calc-grid'; }
-      static get properties() {
+      /*static get properties() {
         return {
           prop1: {
             type: String,
             value: 'polymer-calc-grid'
           }
         };
-      }
+      }*/
     }
 
     window.customElements.define(PolymerCalcGrid.is, PolymerCalcGrid);
