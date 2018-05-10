@@ -18,22 +18,22 @@
         <paper-button>7</paper-button>
         <paper-button>8</paper-button>
         <paper-button>9</paper-button>
-        <paper-button>/</paper-button>
+        <paper-button on-tap="divide">/</paper-button>
 
         <paper-button>4</paper-button>
         <paper-button>5</paper-button>
         <paper-button>6</paper-button>
-        <paper-button>x</paper-button>
+        <paper-button on-tap="multiply">*</paper-button>
 
         <paper-button>1</paper-button>
         <paper-button>2</paper-button>
         <paper-button>3</paper-button>
-        <paper-button>-</paper-button>
+        <paper-button on-tap="subtract">-</paper-button>
 
         <paper-button>.</paper-button>
         <paper-button>0</paper-button>
-        <paper-button>=</paper-button>
-        <paper-button>+</paper-button>
+        <paper-button on-tap="equal">=</paper-button>
+        <paper-button on-tap="add">+</paper-button>
     </div>
     
 
@@ -46,14 +46,35 @@
      */
     class PolymerCalcGrid extends Polymer.Element {
       static get is() { return 'polymer-calc-grid'; }
-      /*static get properties() {
+      static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'polymer-calc-grid'
+          number: {
+            type: Integer,
+            value: 0,
           }
-        };
-      }*/
+        }; 
+      }
+      input(){
+        console.log('number')
+      }
+      add(){
+       console.log('adding');
+      }
+      subtract(){
+        console.log('subtracting');
+      }
+      multiply(){
+        console.log('multiplying');
+      }
+      divide(){
+        console.log('dividing');
+      }
+      equal(){
+        console.log('equals');
+      }
+      delete(){
+        console.log('delete');
+      }
     }
 
     window.customElements.define(PolymerCalcGrid.is, PolymerCalcGrid);
