@@ -45,6 +45,7 @@
         <paper-icon-button id="delete" on-tap="delete" icon="delete"></paper-icon-button>
       </div>
     </paper-input>
+    <paper-input id="preview" label="preview" readonly="true"></paper-input>
   </template>
 
   <script>
@@ -114,7 +115,6 @@
         }
       }
 
-
       // Operators
       add(){
        console.log('adding');
@@ -134,7 +134,35 @@
       }
       equal(){
         console.log('equals');
-        this.$.display.value += '='
+        let value = this.$.display.value;
+        let operators = ['+', '-', '/', '*'];
+        if(value===""){
+          return;
+        }
+        let operator = ""
+        for (let op of operators){
+          if (value.includes(op)){
+            console.log("found an operator")
+            operator=op;
+            value = value.split(operator);
+            console.log(value)
+            console.log(op)
+            break;
+          }
+          else {
+            // handle case where there is no operator in the display
+            this.$.preview.value = value;
+          }
+        }
+        if (operator === operators[0]){
+          this.$.preview.value = value[0] + value[1];
+        } else if (operator === operators[1]){
+          this.$.preview.value = value[0] - value[1];
+        } else if (operator === operators[2]){
+          this.$.preview.value = value[0] / value[1];
+        } else {
+          this.$.preview.value = value[0] * value[1];
+        }
       }
 
       backspace(){
