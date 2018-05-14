@@ -18,30 +18,30 @@
       }
     </style>
     <div class="grid-container">
-        <paper-button id="seven" on-tap="input">7</paper-button>
-        <paper-button id="eight" on-tap="input">8</paper-button>
-        <paper-button id="nine" on-tap="input">9</paper-button>
+        <paper-button id="seven" on-tap="seven">7</paper-button>
+        <paper-button id="eight" on-tap="eight">8</paper-button>
+        <paper-button id="nine" on-tap="nine">9</paper-button>
         <paper-button id="divide" on-tap="divide">/</paper-button>
 
-        <paper-button id="four" on-tap="input">4</paper-button>
-        <paper-button id="five" on-tap="input">5</paper-button>
-        <paper-button id="six" on-tap="input">6</paper-button>
+        <paper-button id="four" on-tap="four">4</paper-button>
+        <paper-button id="five" on-tap="five">5</paper-button>
+        <paper-button id="six" on-tap="six">6</paper-button>
         <paper-button id="multiply" on-tap="multiply">*</paper-button>
 
-        <paper-button id="one" on-tap="input">1</paper-button>
-        <paper-button id="two" on-tap="input">2</paper-button>
-        <paper-button id="three" on-tap="input">3</paper-button>
+        <paper-button id="one" on-tap="one">1</paper-button>
+        <paper-button id="two" on-tap="two">2</paper-button>
+        <paper-button id="three" on-tap="three">3</paper-button>
         <paper-button id="subtract" on-tap="subtract">-</paper-button>
 
-        <paper-button id="decimal" on-tap="input">.</paper-button>
-        <paper-button id="zero" on-tap="input">0</paper-button>
+        <paper-button id="decimal" on-tap="decimal">.</paper-button>
+        <paper-button id="zero" on-tap="zero">0</paper-button>
         <paper-button id="equals" on-tap="equal">=</paper-button>
         <paper-button id="plus" on-tap="add">+</paper-button>
     </div>
 
-    <paper-input id="display" label="display">
+    <paper-input id="display" label="display" readonly="true">
       <div slot="suffix">
-        <paper-icon-button id="clear" icon="clear" on-tap="clear"></paper-icon-button>
+        <paper-icon-button id="clear" icon="clear" on-track="delete" on-tap="clear"></paper-icon-button>
       </div>
     </paper-input>
   </template>
@@ -61,9 +61,44 @@
           }
         }; 
       }
-      input(){
-        console.log('number')
+      
+      zero(){
+        console.log('zero pressed')
+        
       }
+      one(){
+        console.log('one pressed')
+
+      }
+      two(){
+        console.log('two pressed')
+      }
+      three(){
+        console.log('three pressed')
+      }
+      four(){
+        console.log('four pressed')
+      }
+      five(){
+        console.log('five pressed')
+      }
+      six(){
+        console.log('six pressed')
+      }
+      seven(){
+        console.log('seven pressed')
+      }
+      eight(){
+        console.log('eight pressed')
+      }
+      nine(){
+        console.log('nine pressed')
+      }
+      decimal(){
+        console.log('decimal pressed')
+      }
+
+
       add(){
        console.log('adding');
       }
@@ -79,6 +114,8 @@
       equal(){
         console.log('equals');
       }
+
+
       delete(){
         console.log('delete');
       }
