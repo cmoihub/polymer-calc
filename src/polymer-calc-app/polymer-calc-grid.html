@@ -4,49 +4,200 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <dom-module id="polymer-calc-grid">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-      .grid-container {
-        display:grid;
-        grid-template-columns: auto auto auto auto;
-      }
-      .grid-item {
-        text-align:center;
-      }
-    </style>
-    <div class="grid-container">
-        <paper-button id="seven" on-tap="seven">7</paper-button>
-        <paper-button id="eight" on-tap="eight">8</paper-button>
-        <paper-button id="nine" on-tap="nine">9</paper-button>
-        <paper-button id="divide" on-tap="divide">/</paper-button>
+    <template>
+        <style>
+         :host {
+            display: block;
+        }
 
-        <paper-button id="four" on-tap="four">4</paper-button>
-        <paper-button id="five" on-tap="five">5</paper-button>
-        <paper-button id="six" on-tap="six">6</paper-button>
-        <paper-button id="multiply" on-tap="multiply">*</paper-button>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+        }
 
-        <paper-button id="one" on-tap="one">1</paper-button>
-        <paper-button id="two" on-tap="two">2</paper-button>
-        <paper-button id="three" on-tap="three">3</paper-button>
-        <paper-button id="subtract" on-tap="subtract">-</paper-button>
+        .grid-item {
+            text-align: center;
+        }
+        </style>
+        <div class="grid-container">
+            <paper-button id="seven" on-tap="seven">7</paper-button>
+            <paper-button id="eight" on-tap="eight">8</paper-button>
+            <paper-button id="nine" on-tap="nine">9</paper-button>
+            <paper-button id="divide" on-tap="divide">/</paper-button>
+            <paper-button id="four" on-tap="four">4</paper-button>
+            <paper-button id="five" on-tap="five">5</paper-button>
+            <paper-button id="six" on-tap="six">6</paper-button>
+            <paper-button id="multiply" on-tap="multiply">*</paper-button>
+            <paper-button id="one" on-tap="one">1</paper-button>
+            <paper-button id="two" on-tap="two">2</paper-button>
+            <paper-button id="three" on-tap="three">3</paper-button>
+            <paper-button id="subtract" on-tap="subtract">-</paper-button>
+            <paper-button id="decimal" on-tap="decimal">.</paper-button>
+            <paper-button id="zero" on-tap="zero">0</paper-button>
+            <paper-button id="equals" on-tap="equal">=</paper-button>
+            <paper-button id="plus" on-tap="add">+</paper-button>
+        </div>
+        <paper-input id="display" label="display" readonly="true">
+            <div slot="suffix">
+                <paper-icon-button id="backspace" on-tap="backspace" icon="backspace"></paper-icon-button>
+                <paper-icon-button id="delete" on-tap="delete" icon="delete"></paper-icon-button>
+            </div>
+        </paper-input>
+        <paper-input id="preview" label="preview" readonly="true"></paper-input>
+    </template>
+    <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class PolymerCalcGrid extends Polymer.Element {
+        static get is() { return 'polymer-calc-grid'; }
+        static get properties() {
+            // return {
+            //     number: {
+            //         type: Object,
+            //         value: 0,
+            //     }
+            // };
+        }
 
-        <paper-button id="decimal" on-tap="decimal">.</paper-button>
-        <paper-button id="zero" on-tap="zero">0</paper-button>
-        <paper-button id="equals" on-tap="equal">=</paper-button>
-        <paper-button id="plus" on-tap="add">+</paper-button>
-    </div>
+        equal() {
+            console.log('equals');
+            let value = this.$.display.value;
+            let operators = ['+', '-', '/', '*'];
+            // value.toString().charAt(0) !== '-'
+            if ((+value === +value) || (value === "")) {
+                return
+            }
+            let operator = ""
+            let negative = false;
+            if (value.charAt(0) === '-'){
+              negative = true;
+              value = value.slice(1, value.length);
+            }
+            for (let op of operators) {
+                value = value.toString()
+                console.log(value);
+                if (value.includes(op)) {
+                    operator = op;
+                    value = value.split(operator);
+                    if(negative){
+                      value[0] = -value[0]
+                    }
+                    break
+                } else {
+                    // handle case where there is no operator in the display
+                    this.$.preview.value = value
+                }
+            }
+            // convert the strings to their integer values
+            value[0] = +value[0]
+            value[1] = +value[1]
 
-    <paper-input id="display" label="display" readonly="true">
-      <div slot="suffix">
-        <paper-icon-button id="backspace" on-tap="backspace" icon="backspace"></paper-icon-button>
-        <paper-icon-button id="delete" on-tap="delete" icon="delete"></paper-icon-button>
-      </div>
-    </paper-input>
-    <paper-input id="preview" label="preview" readonly="true"></paper-input>
-  </template>
+            // perform an operation on the the two values
+            if (operator === operators[0]) {
+                this.$.preview.value = value[0] + value[1];
+            } else if (operator === operators[1]) {
+                this.$.preview.value = value[0] - value[1];
+            } else if (operator === operators[2]) {
+                this.$.preview.value = value[0] / value[1];
+            } else {
+                this.$.preview.value = value[0] * value[1];
+            }
+            this.$.display.value = this.$.preview.value;
+            // this.$.preview.value = '';
+        }
 
-  <script src="PolymerCalcGrid.js"></script>
+        // Operators
+        add() {
+            console.log('adding');
+            // this.equal();
+            this.$.display.value += '+'
+        }
+        subtract() {
+            console.log('subtracting');
+            // this.equal();
+            this.$.display.value += '-'
+        }
+        multiply() {
+            console.log('multiplying');
+            // this.equal();
+            this.$.display.value += '*'
+        }
+        divide() {
+            console.log('dividing');
+            // this.equal();
+            this.$.display.value += '/'
+        }
+
+        // Numbers & Symbols
+        zero() {
+            console.log('zero pressed');
+            this.$.display.value += '0'
+        }
+        one() {
+            console.log('one pressed');
+            this.$.display.value += '1'
+        }
+        two() {
+            console.log('two pressed');
+            this.$.display.value += '2'
+        }
+        three() {
+            console.log('three pressed');
+            this.$.display.value += '3'
+        }
+        four() {
+            console.log('four pressed');
+            this.$.display.value += '4'
+        }
+        five() {
+            console.log('five pressed');
+            this.$.display.value += '5'
+        }
+        six() {
+            console.log('six pressed');
+            this.$.display.value += '6'
+        }
+        seven() {
+            console.log('seven pressed');
+            this.$.display.value += '7'
+        }
+        eight() {
+            console.log('eight pressed');
+            this.$.display.value += '8'
+        }
+        nine() {
+            console.log('nine pressed');
+            this.$.display.value += '9'
+        }
+        decimal() {
+            console.log('decimal pressed');
+            if (this.$.display.value.includes(".")) {
+                // ensure there are no existing decimals
+                return;
+            } else {
+                this.$.display.value += "."
+            }
+        }
+
+        backspace() {
+            console.log('backspace');
+            this.$.display.value = this.$.display.value.slice(0, this.$.display.value.length - 1)
+        }
+        delete() {
+            /**
+             * This is used to clear the calculator's display
+             */
+            console.log('delete');
+            if (this.$.display.value === '') {
+                // used to avoid repeating action
+                return;
+            }
+            this.$.display.value = '';
+        }
+    }
+
+    window.customElements.define(PolymerCalcGrid.is, PolymerCalcGrid);
+    </script>
 </dom-module>
