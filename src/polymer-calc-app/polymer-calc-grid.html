@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <dom-module id="polymer-calc-grid">
   <template>
     <style>
@@ -15,28 +18,32 @@
       }
     </style>
     <div class="grid-container">
-        <paper-button>7</paper-button>
-        <paper-button>8</paper-button>
-        <paper-button>9</paper-button>
-        <paper-button on-tap="divide">/</paper-button>
+        <paper-button id="seven" on-tap="input">7</paper-button>
+        <paper-button id="eight" on-tap="input">8</paper-button>
+        <paper-button id="nine" on-tap="input">9</paper-button>
+        <paper-button id="divide" on-tap="divide">/</paper-button>
 
-        <paper-button>4</paper-button>
-        <paper-button>5</paper-button>
-        <paper-button>6</paper-button>
-        <paper-button on-tap="multiply">*</paper-button>
+        <paper-button id="four" on-tap="input">4</paper-button>
+        <paper-button id="five" on-tap="input">5</paper-button>
+        <paper-button id="six" on-tap="input">6</paper-button>
+        <paper-button id="multiply" on-tap="multiply">*</paper-button>
 
-        <paper-button>1</paper-button>
-        <paper-button>2</paper-button>
-        <paper-button>3</paper-button>
-        <paper-button on-tap="subtract">-</paper-button>
+        <paper-button id="one" on-tap="input">1</paper-button>
+        <paper-button id="two" on-tap="input">2</paper-button>
+        <paper-button id="three" on-tap="input">3</paper-button>
+        <paper-button id="subtract" on-tap="subtract">-</paper-button>
 
-        <paper-button>.</paper-button>
-        <paper-button>0</paper-button>
-        <paper-button on-tap="equal">=</paper-button>
-        <paper-button on-tap="add">+</paper-button>
+        <paper-button id="decimal" on-tap="input">.</paper-button>
+        <paper-button id="zero" on-tap="input">0</paper-button>
+        <paper-button id="equals" on-tap="equal">=</paper-button>
+        <paper-button id="plus" on-tap="add">+</paper-button>
     </div>
-    
 
+    <paper-input id="display" label="display">
+      <div slot="suffix">
+        <paper-icon-button id="clear" icon="clear" on-tap="clear"></paper-icon-button>
+      </div>
+    </paper-input>
   </template>
 
   <script>
@@ -49,7 +56,7 @@
       static get properties() {
         return {
           number: {
-            type: Integer,
+            type: Object,
             value: 0,
           }
         }; 
@@ -74,6 +81,13 @@
       }
       delete(){
         console.log('delete');
+      }
+      clear(){
+        /**
+         * This is used to clear the calculator's display
+         */
+        console.log('clear');
+        this.$.display.value=null;
       }
     }
 
