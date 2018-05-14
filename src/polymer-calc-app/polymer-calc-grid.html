@@ -63,49 +63,64 @@
 
         equal() {
             console.log('equals');
+
             let value = this.$.display.value;
-            let operators = ['+', '-', '/', '*'];
-            // value.toString().charAt(0) !== '-'
+            this.$.preview.value=value;
+
+            // is the value valid? no? eww? go away!
             if ((+value === +value) || (value === "")) {
                 return
             }
-            let operator = ""
-            let negative = false;
+
+            let operators = ['+', '-', '/', '*'];
+
+            // this variable helps to keep track of the initial number being negative
+            let firstValueShouldBeNegative = false;
             if (value.charAt(0) === '-'){
-              negative = true;
-              value = value.slice(1, value.length);
+              firstValueShouldBeNegative = true;
+              value = value.slice(1, value.length)
             }
-            for (let op of operators) {
-                value = value.toString()
-                console.log(value);
-                if (value.includes(op)) {
-                    operator = op;
-                    value = value.split(operator);
-                    if(negative){
-                      value[0] = -value[0]
-                    }
-                    break
-                } else {
-                    // handle case where there is no operator in the display
-                    this.$.preview.value = value
-                }
+
+            
+            let results = this.evaluate(value);
+            let operator = results[0]
+            value = results[1]
+            if(firstValueShouldBeNegative){
+              value[0] = -value[0]
             }
             // convert the strings to their integer values
             value[0] = +value[0]
             value[1] = +value[1]
 
             // perform an operation on the the two values
-            if (operator === operators[0]) {
-                this.$.preview.value = value[0] + value[1];
-            } else if (operator === operators[1]) {
-                this.$.preview.value = value[0] - value[1];
-            } else if (operator === operators[2]) {
-                this.$.preview.value = value[0] / value[1];
-            } else {
-                this.$.preview.value = value[0] * value[1];
+            switch(operator){
+              case '+': this.$.display.value = value[0] + value[1]; break;
+              case '-': this.$.display.value = value[0] - value[1]; break;
+              case '/': this.$.display.value = value[0] / value[1]; break;
+              case '*': this.$.display.value = value[0] * value[1]; break;
             }
-            this.$.display.value = this.$.preview.value;
-            // this.$.preview.value = '';
+        }
+
+        evaluate(value){
+          /**
+           * This function returns the operator and formatted value based on an equation
+           * in string format
+           * @type {Array}
+           */
+          let operators = ['+', '-', '/', '*'];
+          let operator = ""
+          for (let op of operators) {
+                value = value.toString()
+                if (value.includes(op)) {
+                    operator = op;
+                    value = value.split(operator);
+                    break
+                } else {
+                    // keep searching for an operator
+                    continue;
+                }
+            }
+            return [operator, value];
         }
 
         // Operators
@@ -173,6 +188,10 @@
         }
         decimal() {
             console.log('decimal pressed');
+            let op = this.evaluate(this.$.display.value)[0]
+            let reg = new RegExp(/^(?:\d*\.\d|\d+)$/)
+
+            console.log()
             if (this.$.display.value.includes(".")) {
                 // ensure there are no existing decimals
                 return;
