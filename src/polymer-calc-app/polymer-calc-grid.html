@@ -41,7 +41,8 @@
 
     <paper-input id="display" label="display" readonly="true">
       <div slot="suffix">
-        <paper-icon-button id="clear" icon="clear" on-track="delete" on-tap="clear"></paper-icon-button>
+        <paper-icon-button id="backspace" on-tap="backspace" icon="backspace"></paper-icon-button>
+        <paper-icon-button id="delete" on-tap="delete" icon="delete"></paper-icon-button>
       </div>
     </paper-input>
   </template>
@@ -61,70 +62,95 @@
           }
         }; 
       }
-      
+
+      // Numbers & Symbols
       zero(){
-        console.log('zero pressed')
-        
+        console.log('zero pressed');
+        this.$.display.value += '0'
       }
       one(){
-        console.log('one pressed')
-
+        console.log('one pressed');
+        this.$.display.value += '1'
       }
       two(){
-        console.log('two pressed')
+        console.log('two pressed');
+        this.$.display.value += '2'
       }
       three(){
-        console.log('three pressed')
+        console.log('three pressed');
+        this.$.display.value += '3'
       }
       four(){
-        console.log('four pressed')
+        console.log('four pressed');
+        this.$.display.value += '4'
       }
       five(){
-        console.log('five pressed')
+        console.log('five pressed');
+        this.$.display.value += '5'
       }
       six(){
-        console.log('six pressed')
+        console.log('six pressed');
+        this.$.display.value += '6'
       }
       seven(){
-        console.log('seven pressed')
+        console.log('seven pressed');
+        this.$.display.value += '7'
       }
       eight(){
-        console.log('eight pressed')
+        console.log('eight pressed');
+        this.$.display.value += '8'
       }
       nine(){
-        console.log('nine pressed')
+        console.log('nine pressed');
+        this.$.display.value += '9'
       }
       decimal(){
-        console.log('decimal pressed')
+        console.log('decimal pressed');
+        if (this.$.display.value.includes(".")){
+          // ensure there are no existing decimals
+          return;
+        }  else {
+          this.$.display.value += "."  
+        }
       }
 
 
+      // Operators
       add(){
        console.log('adding');
+       this.$.display.value += '+'
       }
       subtract(){
         console.log('subtracting');
+        this.$.display.value += '-'
       }
       multiply(){
         console.log('multiplying');
+        this.$.display.value += '*'
       }
       divide(){
         console.log('dividing');
+        this.$.display.value += '/'
       }
       equal(){
         console.log('equals');
+        this.$.display.value += '='
       }
 
-
+      backspace(){
+        console.log('backspace');
+        this.$.display.value=this.$.display.value.slice(0, this.$.display.value.length-1)
+      }
       delete(){
-        console.log('delete');
-      }
-      clear(){
         /**
          * This is used to clear the calculator's display
          */
-        console.log('clear');
-        this.$.display.value=null;
+        console.log('delete');
+        if(this.$.display.value===''){
+          // used to avoid repeating action
+          return;
+        }
+        this.$.display.value='';
       }
     }
 
