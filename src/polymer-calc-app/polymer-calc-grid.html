@@ -118,35 +118,37 @@
       // Operators
       add(){
        console.log('adding');
+       this.equal();
        this.$.display.value += '+'
       }
       subtract(){
         console.log('subtracting');
+        this.equal();
         this.$.display.value += '-'
       }
       multiply(){
         console.log('multiplying');
+        this.equal();
         this.$.display.value += '*'
       }
       divide(){
         console.log('dividing');
+        this.equal();
         this.$.display.value += '/'
       }
       equal(){
         console.log('equals');
         let value = this.$.display.value;
         let operators = ['+', '-', '/', '*'];
-        if(value===""){
+
+        if(value==="" || +value === +value){
           return;
         }
         let operator = ""
         for (let op of operators){
           if (value.includes(op)){
-            console.log("found an operator")
             operator=op;
             value = value.split(operator);
-            console.log(value)
-            console.log(op)
             break;
           }
           else {
