@@ -81,10 +81,10 @@
               value = value.slice(1, value.length)
             }
 
-            
             let results = this.evaluate(value);
             let operator = results[0]
             value = results[1]
+
             if(firstValueShouldBeNegative){
               value[0] = -value[0]
             }
@@ -188,15 +188,23 @@
         }
         decimal() {
             console.log('decimal pressed');
+            // build regular expression of the format x.y + a
+            // adding a decimal would make it
+            // x.y + a.b
+            // ^(?:\d*\.\d{0,}\operator\d)$
+            let start = '^(?:\\d*\\.\\d{0,}\\'
             let op = this.evaluate(this.$.display.value)[0]
-            let reg = new RegExp(/^(?:\d*\.\d|\d+)$/)
+            let end = '\\d)$'
+            let bigReg = new RegExp(start + op + end)
+            // Check if it's a number
+            let reg = new RegExp(/^-?\d+$/);
+            
 
-            console.log()
-            if (this.$.display.value.includes(".")) {
-                // ensure there are no existing decimals
-                return;
-            } else {
+            console.log(reg.test(this.$.display.value))
+            if (reg.test(this.$.display.value) || bigReg.test(this.$.display.value)) {
                 this.$.display.value += "."
+            } else {
+                return;
             }
         }
 
