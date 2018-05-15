@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
 <dom-module id="polymer-calc-grid">
     <template>
         <style>
@@ -192,14 +193,13 @@
             // adding a decimal would make it
             // x.y + a.b
             // ^(?:\d*\.\d{0,}\operator\d)$
-            let start = '^(?:\\d*\\.\\d{0,}\\'
+            let start = '^(?:\\d*\\.\\d*\\'
             let op = this.evaluate(this.$.display.value)[0]
             let end = '\\d)$'
             let bigReg = new RegExp(start + op + end)
             // Check if it's a number
-            let reg = new RegExp(/^-?\d+$/);
-            
-
+            let reg = new RegExp(/^-?\d*$/);
+             
             console.log(reg.test(this.$.display.value))
             if (reg.test(this.$.display.value) || bigReg.test(this.$.display.value)) {
                 this.$.display.value += "."
